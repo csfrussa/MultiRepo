@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import br.com.icp.PiecesManager;
+import br.com.icp.R;
 import br.com.icp.math.Vector2D;
 import br.com.icp.pieces.Ball;
 import br.com.icp.pieces.Pad;
@@ -22,7 +23,9 @@ public class GameView extends View implements Runnable {
 	//private int width = 720, height = 1280;
 	
 	// Emulator
-	private int width = 320, height = 480;
+	//private int width = 320, height = 480;
+
+	private int width, height;
 
 	private Paint background;
 	private Handler handler;
@@ -33,16 +36,22 @@ public class GameView extends View implements Runnable {
 	
 	public GameView(Context context) {
 		super(context);
+        width= context.getResources().getDisplayMetrics().widthPixels;
+        height= context.getResources().getDisplayMetrics().heightPixels;
 		init();
 	}
 
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+        width= context.getResources().getDisplayMetrics().widthPixels;
+        height= context.getResources().getDisplayMetrics().heightPixels;
 		init();
 	}
 
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+        width= context.getResources().getDisplayMetrics().widthPixels;
+        height= context.getResources().getDisplayMetrics().heightPixels;
 		init();
 	}
 
@@ -51,6 +60,9 @@ public class GameView extends View implements Runnable {
         background.setColor(Color.BLACK);
 
         manager = new PiecesManager();
+
+//        Display display = ((WindowManager) getSystemService(this.WINDOW_SERVICE))  .getDefaultDisplay();
+//        Log.i("Debug", display.getWidth(), display.getHeight());
         
         manager.addPiece(new Ball(new Vector2D(20, 20), new Vector2D(1,1), 2, manager));
         
@@ -61,7 +73,7 @@ public class GameView extends View implements Runnable {
         
         northPad = new Pad(new Vector2D(0, -1), 80); //80 é a distancia default do eixo, no caso desenhar no 80 de y
         manager.addPiece(northPad);
-        southPad = new Pad(new Vector2D(0, 1), height-80);//944 do y
+        southPad = new Pad(new Vector2D(0, 1), 400);//944 do y
         manager.addPiece(southPad);
 	}
 
